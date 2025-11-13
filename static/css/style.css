@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Zalando+Sans+SemiExpanded:ital,wght@0,200..900;1,200..900&display=swap');
 /* Animations */
 @keyframes fadeInUp {
     from {
@@ -66,6 +67,10 @@
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    
+    /* Font families */
+    --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
 }
 
 /* Reset & Base Styles */
@@ -76,7 +81,7 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--font-primary);
     line-height: 1.6;
     color: var(--text-primary);
     background-color: var(--bg-primary);
@@ -106,12 +111,14 @@ body {
 }
 
 .nav-brand a {
-    font-size: 1.5rem;
+    font-size: 2.0rem;
     font-weight: 700;
     color: var(--primary-color);
     text-decoration: none;
     transition: transform 0.3s ease;
     display: inline-block;
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
 }
 
 .nav-brand a:hover {
@@ -136,6 +143,7 @@ body {
 .nav-link {
     color: var(--text-secondary);
     text-decoration: none;
+    font-size: 1.0rem;
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
@@ -224,11 +232,13 @@ body {
 }
 
 .hero-title {
-    font-size: 3rem;
-    font-weight: 700;
+    font-size: 3.5rem;
+    font-weight: 800;
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     animation: fadeInUp 1s ease-out 0.2s both;
+    font-family: var(--font-heading);
+    letter-spacing: 1px;
 }
 
 .hero-subtitle {
@@ -260,8 +270,8 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
     padding: 0.5rem 1rem;
     border-radius: 20px;
-    font-size: 0.9rem;
-    backdrop-filter: blur(10px);
+    font-size: 1.3rem;
+    /* backdrop-filter: blur(10px); */
     transition: all 0.3s ease;
     cursor: default;
 }
@@ -292,6 +302,8 @@ body {
     font-size: 1rem;
     position: relative;
     overflow: hidden;
+    font-family: var(--font-primary);
+    letter-spacing: 0.5px;
 }
 
 .btn::before {
@@ -355,20 +367,23 @@ section:nth-child(odd) {
     font-size: 2.5rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     color: var(--text-primary);
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
+    font-family: var(--font-heading);
+    letter-spacing: 0.5px;
 }
 
 .section-title::after {
     content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
+    position: relative;
+    margin-top: 10px;
+    width: calc(100% + 40px);
+    max-width: 300px;
     height: 4px;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
     border-radius: 2px;
@@ -397,6 +412,7 @@ section:nth-child(odd) {
     font-weight: 500;
     color: var(--text-primary);
     margin-bottom: 1.5rem;
+    font-family: var(--font-primary);
 }
 
 .about-text p {
@@ -481,6 +497,8 @@ section:nth-child(odd) {
     margin-bottom: 1rem;
     font-size: 1.2rem;
     transition: all 0.3s ease;
+    font-family: var(--font-heading);
+    font-weight: 600;
 }
 
 .skill-category:hover h3 {
@@ -602,11 +620,11 @@ section:nth-child(odd) {
     margin-bottom: 1rem;
 }
 
-.project-header h3 {
-    color: var(--text-primary);
-    font-size: 1.3rem;
-    flex: 1;
-    transition: color 0.3s ease;
+.project-header h3,
+.cert-content h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 0.3px;
 }
 
 .project-card:hover .project-header h3 {

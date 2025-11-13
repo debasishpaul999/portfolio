@@ -1,7 +1,7 @@
 {
     "title": "5G Network Performance Analytics Dashboard",
     "description": "A comprehensive Power BI dashboard analyzing global 5G/4G network performance across carriers, devices, and locations. This interactive dashboard provides insights into network quality, speed metrics, and carrier performance comparisons.",
-    "date": "2025-November",
+    "date": "November 2025",
     "technologies": ["Python", "PowerBI", "Kaggle"],
     "github": "https://github.com/debasishpaul999/PowerBI__5G_data.git",
     "demo": "",

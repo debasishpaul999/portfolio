@@ -1,7 +1,7 @@
 {
     "title": "WeatherInsight Web App",
     "description": "WeatherInsight is a comprehensive meteorological data analysis platform built with Python Flask that empowers users to explore historical weather patterns, identify climate trends, and generate detailed analytics reports.",
-    "date": "2025-October",
+    "date": "October 2025",
     "technologies": ["Python", "Flask", "MySQL", "Pandas", "Seaborn", "Flask"],
     "github": "https://github.com/debasishpaul999/Weather_Data_Analytics.git",
     "demo": "",

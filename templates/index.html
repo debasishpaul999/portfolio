@@ -26,6 +26,11 @@
             </div>
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-primary">View Projects</a>
+                {% if profile.resume %}
+                <a href="{{ url_for('static', filename=profile.resume) }}" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+                {% endif %}
                 <a href="#contact" class="btn btn-secondary">Contact Me</a>
             </div>
         </div>
