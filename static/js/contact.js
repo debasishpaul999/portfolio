@@ -1,91 +1,138 @@
-// Contact Form Handler
+// Simple Contact Form Handler
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
+        console.log('Contact form loaded');
+        
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Form submitted');
             
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             
             // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                message: document.getElementById('message').value
-            };
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
             
-            // Disable button and show loading state
+            // Basic validation
+            if (!name || !email || !message) {
+                showMessage('Please fill in all fields.', 'error');
+                return;
+            }
+            
+            // Simple email validation
+            if (!email.includes('@') || !email.includes('.')) {
+                showMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // Show loading state
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
+            submitBtn.style.opacity = '0.7';
             
-            try {
-                const response = await fetch('/send-message', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
+            // Simulate sending (opens email client)
+            setTimeout(() => {
+                sendEmail(name, email, message);
                 
-                const result = await response.json();
+                // Show success message
+                showMessage('Thank you! Your message has been sent successfully.', 'success');
                 
-                if (result.success) {
-                    // Show success message
-                    showMessage('Message sent successfully! I will get back to you soon.', 'success');
-                    contactForm.reset();
-                } else {
-                    showMessage('Failed to send message. Please try again.', 'error');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showMessage('An error occurred. Please try again later.', 'error');
-            } finally {
-                // Re-enable button
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
-            }
+                submitBtn.style.opacity = '1';
+                
+            }, 1500); // Simulate delay
         });
     }
     
-    function showMessage(message, type) {
-        // Remove existing messages
-        const existingMessage = document.querySelector('.form-message');
-        if (existingMessage) {
-            existingMessage.remove();
+    function sendEmail(name, email, message) {
+        // Get the portfolio owner's email from the page
+        const profileEmailElement = document.querySelector('a[href^="mailto:"]');
+        let toEmail = 'your-email@example.com'; // Default fallback
+        
+        if (profileEmailElement) {
+            toEmail = profileEmailElement.href.replace('mailto:', '');
         }
+        
+        // Create email content
+        const subject = `Portfolio Message from ${name}`;
+        const body = `
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+---
+This message was sent from your portfolio website.
+        `.trim();
+        
+        // Create mailto link
+        const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Open email client in new tab
+        window.open(mailtoLink, '_blank');
+        
+        console.log('Email client opened with pre-filled message');
+    }
+    
+    function showMessage(text, type) {
+        // Remove existing messages
+        const existingMessages = document.querySelectorAll('.form-message');
+        existingMessages.forEach(msg => msg.remove());
         
         // Create message element
         const messageDiv = document.createElement('div');
-        messageDiv.className = `form-message ${type}`;
-        messageDiv.textContent = message;
+        messageDiv.className = 'form-message';
+        messageDiv.textContent = text;
         
-        // Style the message
-        messageDiv.style.padding = '1rem';
-        messageDiv.style.borderRadius = '8px';
-        messageDiv.style.marginTop = '1rem';
-        messageDiv.style.textAlign = 'center';
-        messageDiv.style.fontWeight = '600';
-        
+        // Style based on type
         if (type === 'success') {
-            messageDiv.style.backgroundColor = '#d1fae5';
-            messageDiv.style.color = '#065f46';
-            messageDiv.style.border = '2px solid #10b981';
+            messageDiv.style.cssText = `
+                background: #d1fae5;
+                color: #065f46;
+                border: 2px solid #10b981;
+                padding: 1rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+                text-align: center;
+                font-weight: 600;
+            `;
         } else {
-            messageDiv.style.backgroundColor = '#fee2e2';
-            messageDiv.style.color = '#991b1b';
-            messageDiv.style.border = '2px solid #ef4444';
+            messageDiv.style.cssText = `
+                background: #fee2e2;
+                color: #991b1b;
+                border: 2px solid #ef4444;
+                padding: 1rem;
+                border-radius: 8px;
+                margin: 1rem 0;
+                text-align: center;
+                font-weight: 600;
+            `;
         }
         
-        // Insert message after form
+        // Add to form
         contactForm.appendChild(messageDiv);
         
-        // Remove message after 5 seconds
+        // Remove after 5 seconds
         setTimeout(() => {
-            messageDiv.style.transition = 'opacity 0.5s ease';
-            messageDiv.style.opacity = '0';
-            setTimeout(() => messageDiv.remove(), 500);
+            messageDiv.remove();
         }, 5000);
     }
+    
+    // Add input validation styling
+    const inputs = document.querySelectorAll('#contactForm input, #contactForm textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            this.style.borderColor = '';
+        });
+    });
 });

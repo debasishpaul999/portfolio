@@ -111,6 +111,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // FIX: Certificate links - ensure they work properly
+    document.addEventListener('click', function(e) {
+        // Check if the clicked element is a certificate link or inside one
+        const certLink = e.target.closest('.cert-link');
+        if (certLink) {
+            const href = certLink.getAttribute('href');
+            
+            // Only prevent default for internal links (starting with #)
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const navHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = target.offsetTop - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            // External links will open normally - no prevention
+        }
+    });
+
     // Add smooth counter animation for numbers (if you add stats later)
     function animateCounter(element, target, duration = 2000) {
         let current = 0;
@@ -126,9 +150,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 16);
     }
 
-    // Add ripple effect to buttons
-    document.querySelectorAll('.btn, .project-link, .cert-link').forEach(button => {
+    // Add ripple effect to buttons - EXCLUDE certificate links and contact form button
+    document.querySelectorAll('.btn:not(#contactForm button), .project-link').forEach(button => {
         button.addEventListener('click', function(e) {
+            // Don't create ripple for external links to avoid visual delay
+            if (this.getAttribute('href') && !this.getAttribute('href').startsWith('#')) {
+                return;
+            }
+            
             const ripple = document.createElement('span');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
@@ -145,4 +174,12 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => ripple.remove(), 600);
         });
     });
+
+    // Debug: Check if everything loaded properly
+    setTimeout(() => {
+        console.log('=== Portfolio Debug Info ===');
+        console.log('Contact form:', document.getElementById('contactForm'));
+        console.log('Certificate links:', document.querySelectorAll('.cert-link').length);
+        console.log('Profile data:', document.querySelector('.hero-title')?.textContent);
+    }, 1000);
 });
