@@ -1,0 +1,9 @@
+{
+    "title": "Stock Market Analysis Web App",
+    "description": "A machine learning-powered web application that predicts future stock trends based on historical data. This project combines deep learning models with a clean Flask interface to provide stock market trend forecasts. Ideal for financial data enthusiasts and beginners learning ML deployment.",
+    "date": "2025-June",
+    "technologies": ["Python", "Pandas", "Matplotlib", "Tensorflow", "Flask"],
+    "github": "https://github.com/debasishpaul999/Stock-market-prediction.git",
+    "demo": "",
+    "image": "stock_pred.png"
+}

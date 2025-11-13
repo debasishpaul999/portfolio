@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="home" class="hero-section hero-with-background" style="--hero-bg-image: url('{{ url_for('static', filename='images/background.jpg') }}');">
+    <div class="container">
+        <div class="hero-content">
+            {% if profile.image %}
+            <div class="profile-image-wrapper">
+                <img src="{{ url_for('static', filename='images/' + profile.image) }}" alt="{{ profile.name }}" class="profile-image">
+            </div>
+            {% endif %}
+            <h1 class="hero-title">{{ profile.name }}</h1>
+            <p class="hero-subtitle">{{ profile.tagline }}</p>
+            <p class="hero-description">
+                Skilled in Python, SQL, Machine Learning, Data Visualization, and Statistical Analysis
+            </p>
+            <div class="hero-keywords">
+                <span class="keyword">Python</span>
+                <span class="keyword">SQL</span>
+                <span class="keyword">Tableau</span>
+                <span class="keyword">Power BI</span>
+                <span class="keyword">Machine Learning</span>
+                <span class="keyword">Pandas</span>
+                <span class="keyword">Excel</span>
+            </div>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Contact Me</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about-section">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p class="lead">
+                    {{ profile.bio }}
+                </p>
+                <div class="personal-info">
+                    {% if profile.location %}
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ profile.location }}</span>
+                    </div>
+                    {% endif %}
+                    {% if profile.email %}
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+                    </div>
+                    {% endif %}
+                    {% if profile.phone %}
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>{{ profile.phone }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <p>
+                    Proficient in <strong>data cleaning</strong>, <strong>exploratory data analysis (EDA)</strong>, <strong>statistical modeling</strong>, and <strong>data visualization</strong>. Experienced in using Python libraries including Pandas, NumPy, Scikit-learn, and Matplotlib for comprehensive data analysis.
+                </p>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-code"></i> Programming</h3>
+                        <ul>
+                            <li>Python (Pandas, NumPy, Scikit-learn)</li>
+                            <li>SQL (MySQL, PostgreSQL)</li>
+                            <li>R Programming</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-chart-line"></i> Visualization</h3>
+                        <ul>
+                            <li>Tableau</li>
+                            <li>Power BI</li>
+                            <li>Matplotlib & Seaborn</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-brain"></i> Analytics</h3>
+                        <ul>
+                            <li>Statistical Analysis</li>
+                            <li>Machine Learning</li>
+                            <li>Predictive Modeling</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-database"></i> Tools</h3>
+                        <ul>
+                            <li>Excel (Advanced)</li>
+                            <li>Jupyter Notebook</li>
+                            <li>Git & GitHub</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="projects-section">
+    <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">Data-driven projects showcasing analytical and technical skills</p>
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card">
+                {% if project.image %}
+                <div class="project-image">
+                    <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" alt="{{ project.title }}">
+                </div>
+                {% endif %}
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>{{ project.title }}</h3>
+                        <span class="project-date">{{ project.date }}</span>
+                    </div>
+                    <p class="project-description">{{ project.description }}</p>
+                    <div class="project-tags">
+                        {% for tech in project.technologies %}
+                        <span class="tag">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="project-links">
+                        {% if project.github %}
+                        <a href="{{ project.github }}" class="project-link" target="_blank">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                        {% endif %}
+                        {% if project.demo %}
+                        <a href="{{ project.demo }}" class="project-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if not projects %}
+        <div class="empty-state">
+            <i class="fas fa-folder-open"></i>
+            <p>No projects yet. Add JSON files to data/projects/ directory.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Certificates Section -->
+<section id="certificates" class="certificates-section">
+    <div class="container">
+        <h2 class="section-title">Certifications</h2>
+        <p class="section-subtitle">Professional certifications and continuous learning</p>
+        <div class="certificates-grid">
+            {% for cert in certificates %}
+            <div class="certificate-card">
+                {% if cert.image %}
+                <div class="cert-image">
+                    <img src="{{ url_for('static', filename='images/certificates/' + cert.image) }}" alt="{{ cert.title }}">
+                </div>
+                {% else %}
+                <div class="cert-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                {% endif %}
+                <div class="cert-content">
+                    <h3>{{ cert.title }}</h3>
+                    <p class="cert-issuer">{{ cert.issuer }}</p>
+                    <p class="cert-date">{{ cert.date }}</p>
+                    {% if cert.credential_url %}
+                    <a href="{{ cert.credential_url }}" class="cert-link" target="_blank">
+                        View Credential <i class="fas fa-arrow-right"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if not certificates %}
+        <div class="empty-state">
+            <i class="fas fa-award"></i>
+            <p>No certificates yet. Add JSON files to data/certificates/ directory.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Let's discuss how I can contribute to your data analytics team</p>
+        <div class="contact-content">
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+            <div class="contact-info">
+                {% if profile.email %}
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p><a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if profile.phone %}
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>{{ profile.phone }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if profile.linkedin %}
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <div>
+                        <h4>LinkedIn</h4>
+                        <p><a href="{{ profile.linkedin }}" target="_blank">View Profile</a></p>
+                    </div>
+                </div>
+                {% endif %}
+                {% if profile.github %}
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <div>
+                        <h4>GitHub</h4>
+                        <p><a href="{{ profile.github }}" target="_blank">View Repositories</a></p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% endblock %}
