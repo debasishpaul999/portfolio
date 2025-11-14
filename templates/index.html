@@ -2,7 +2,7 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section id="home" class="hero-section hero-with-background" style="--hero-bg-image: url('{{ url_for('static', filename='images/background.jpg') }}');">
+<section id="home" class="hero-section hero-with-background" style="--hero-bg-image: url('{{ url_for('static', filename='images/bg1.jpg') }}');">
     <div class="container">
         <div class="hero-content">
             {% if profile.image %}
@@ -23,10 +23,13 @@
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL">
                 </span>
                 <span class="keyword-icon" data-tooltip="Tableau">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tableau.svg" alt="Tableau">
+                    <img src="https://cdn.iconscout.com/icon/free/png-512/free-tableau-icon-svg-download-png-4489897.png?f=webp&w=256" alt="Tableau">
                 </span>
                 <span class="keyword-icon" data-tooltip="Power BI">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/powerbi.svg" alt="Power BI">
+                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/power-bi-icon.png" alt="Power BI">
+                </span>
+                <span class="keyword-icon" data-tooltip="Excel">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Microsoft_Office_Excel_%282019%E2%80%932025%29.svg/826px-Microsoft_Office_Excel_%282019%E2%80%932025%29.svg.png" alt="Excel">
                 </span>
                 <span class="keyword-icon" data-tooltip="Pandas">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas">
@@ -34,17 +37,14 @@
                 <span class="keyword-icon" data-tooltip="NumPy">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy">
                 </span>
-                <span class="keyword-icon" data-tooltip="Excel">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/microsoftexcel.svg" alt="Excel">
-                </span>
                 <span class="keyword-icon" data-tooltip="Jupyter">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" alt="Jupyter">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jupyter_logo.svg/1767px-Jupyter_logo.svg.png" alt="Jupyter">
                 </span>
                 <span class="keyword-icon" data-tooltip="Matplotlib">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png" alt="Matplotlib">
                 </span>
                 <span class="keyword-icon" data-tooltip="GitHub">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Github-desktop-logo-symbol.svg/2048px-Github-desktop-logo-symbol.svg.png" alt="GitHub">
                 </span>
                 <span class="keyword-icon" data-tooltip="AWS">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS">
@@ -155,7 +155,10 @@
                     <p class="project-description">{{ project.description }}</p>
                     <div class="project-tags">
                         {% for tech in project.technologies %}
-                        <span class="tag">{{ tech }}</span>
+                        <span class="tag logo-only" data-tech="{{ tech }}" title="{{ tech }}">
+                            <img src="{{ get_tech_logo(tech) }}" alt="{{ tech }}" class="tag-logo">
+                            <span class="tag-text">{{ tech }}</span>
+                        </span>
                         {% endfor %}
                     </div>
                     <div class="project-links">
